@@ -25,3 +25,4 @@ Thumbs.db
 *.log
 
 *.json
+.src/java/config/DatabaseConfig.java
