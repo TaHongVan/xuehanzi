@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:sqlserver://${DB_HOST:sqlserver}:${DB_PORT:1433};databaseName=${DB_NAME:hanzii_db};encrypt=true;trustServerCertificate=true;sendStringParametersAsUnicode=true
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:YourStrong@Passw0rd}
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+  data:
+    redis:
+      host: ${REDIS_HOST:redis}
+      port: ${REDIS_PORT:6379}
+      timeout: 2000ms
+
+app:
+  redis:
+    enabled: true

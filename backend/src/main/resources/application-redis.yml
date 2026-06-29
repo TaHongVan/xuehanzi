@@ -1,0 +1,11 @@
+# Bật profile này khi đã cài Redis: --spring.profiles.active=dev,redis
+app:
+  redis:
+    enabled: true
+
+spring:
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: 2000ms

@@ -1,0 +1,66 @@
+spring:
+  application:
+    name: hanzii-backend
+  config:
+    import:
+      - optional:file:../.env[.properties]
+      - optional:file:.env[.properties]
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServerDialect
+        format_sql: true
+        use_nationalized_character_data: true
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:25}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: ${MAIL_SMTP_AUTH:false}
+          starttls:
+            enable: ${MAIL_SMTP_STARTTLS:false}
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+app:
+  redis:
+    enabled: ${REDIS_ENABLED:false}
+  jwt:
+    secret: ${JWT_SECRET:hanzii-super-secret-key-change-in-production-min-256-bits-long!!}
+    expiration-ms: 86400000
+  openai:
+    api-key: ${HANZII_OPENAI_API_KEY:${OPENAI_API_KEY:}}
+    model: gpt-4o-mini
+    realtime-model: ${OPENAI_REALTIME_MODEL:gpt-realtime-2}
+    realtime-voice: ${OPENAI_REALTIME_VOICE:marin}
+    base-url: https://api.openai.com/v1
+  google:
+    client-id: ${GOOGLE_CLIENT_ID:}
+  mail:
+    enabled: ${MAIL_ENABLED:false}
+    from: ${MAIL_FROM:no-reply@hanzii.local}
+  cors:
+    allowed-origins: http://localhost:5173,http://localhost:3000
+
+logging:
+  level:
+    com.hanzii: DEBUG
+    org.springframework.security: INFO
