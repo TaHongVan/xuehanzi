@@ -3,6 +3,9 @@ import { useAuth } from './context/AuthContext'
 import MainLayout from './components/MainLayout'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
+import RegisterVerifyPage from './pages/RegisterVerifyPage'
+import ForgotPasswordPage from './pages/ForgotPasswordPage'
+import ResetPasswordPage from './pages/ResetPasswordPage'
 import VocabularyPage from './pages/VocabularyPage'
 import TestPage from './pages/TestPage'
 import SentencePage from './pages/SentencePage'
@@ -27,6 +30,9 @@ export default function App() {
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/register/verify" element={<RegisterVerifyPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+      <Route path="/reset-password" element={<ResetPasswordPage />} />
       <Route path="/" element={<PrivateRoute><MainLayout /></PrivateRoute>}>
         <Route index element={<Navigate to="/vocabulary" replace />} />
         <Route path="vocabulary" element={<VocabularyPage />} />

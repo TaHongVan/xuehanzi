@@ -4,6 +4,10 @@ export const authApi = {
   login: (data) => api.post('/auth/login', data),
   register: (data) => api.post('/auth/register', data),
   verifyRegistration: (data) => api.post('/auth/register/verify', data),
+  verifyRegistrationLink: (data) => api.post('/auth/register/verify-link', data),
+  resendRegistration: (data) => api.post('/auth/register/resend', data),
+  forgotPassword: (data) => api.post('/auth/forgot-password', data),
+  resetPassword: (data) => api.post('/auth/reset-password', data),
   googleLogin: (data) => api.post('/auth/google', data),
 }
 

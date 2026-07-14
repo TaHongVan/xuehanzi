@@ -30,7 +30,7 @@ export default function MainLayout() {
   const { logout, isAdmin, user } = useAuth()
   const [stats, setStats] = useState({ masteredCount: 0, todayCount: 0 })
   const visibleNavItems = isAdmin
-    ? [...navItems, { key: '/admin', icon: <SettingOutlined />, label: 'Quan tri' }]
+    ? [...navItems, { key: '/admin', icon: <SettingOutlined />, label: 'Quản trị' }]
     : navItems
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export default function MainLayout() {
         </Space>
       </header>
 
-      <nav className="feature-nav" aria-label="Chức năng hoc">
+      <nav className="feature-nav" aria-label="Chức năng học">
         {visibleNavItems.map(item => {
           const active = location.pathname === item.key || location.pathname.startsWith(`${item.key}/`)
           return (
@@ -75,7 +75,7 @@ export default function MainLayout() {
         })}
         <span className="user-inline"><UserOutlined /> {user?.username}</span>
         <Button className="logout-inline" type="text" onClick={() => { logout(); navigate('/login') }}>
-          Dang xuat
+          Đăng xuất
         </Button>
       </nav>
 

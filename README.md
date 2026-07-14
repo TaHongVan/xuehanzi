@@ -21,7 +21,7 @@ Production-ready fullstack web application for learning Chinese (Vietnamese UI).
 hanziiii/
 ├── backend/                 # Spring Boot REST API
 │   └── src/main/java/com/hanzii/
-│       ├── config/          # Security, Redis, DataSeeder
+│       ├── config/          # Security, Redis, auditing, async, cache
 │       ├── controller/      # REST controllers
 │       ├── dto/             # Request/Response DTOs
 │       ├── entity/          # JPA entities
@@ -64,8 +64,8 @@ hanziiii/
 
 ```bash
 # Option A: Run SQL scripts
-sqlcmd -S localhost -U sa -P "YourStrong@Passw0rd" -i sql/01_schema.sql
-sqlcmd -S localhost -U sa -P "YourStrong@Passw0rd" -i sql/02_sample_data.sql
+sqlcmd -S localhost -U sa -P "<your-db-password>" -i sql/01_schema.sql
+sqlcmd -S localhost -U sa -P "<your-db-password>" -i sql/02_sample_data.sql
 
 # Option B: Let Spring Boot auto-create (ddl-auto: update in dev profile)
 ```
@@ -75,12 +75,13 @@ sqlcmd -S localhost -U sa -P "YourStrong@Passw0rd" -i sql/02_sample_data.sql
 ```bash
 cd backend
 
-# Set environment variables (or copy .env.example)
+# Set environment variables (or copy .env.example to ../.env)
 set DB_HOST=localhost
-set DB_PASSWORD=YourStrong@Passw0rd
-set OPENAI_API_KEY=sk-your-key   # optional
+set DB_USERNAME=sa
+set DB_PASSWORD=your-strong-sqlserver-password
+set JWT_SECRET=your-random-256-bit-or-longer-secret
+set OPENAI_API_KEY=<optional-ai-api-key>
 
-$env:DB_PASSWORD="mat_khau_sa_that"
 mvn spring-boot:run
 ```
 
@@ -178,7 +179,7 @@ See [docs/API_SAMPLES.md](docs/API_SAMPLES.md) for full request/response example
 
 ### Production Checklist
 
-- [ ] Change `JWT_SECRET` to a strong random key (256+ bits)
+- [ ] Keep `.env` out of git and set `JWT_SECRET` to a strong random key (256+ bits)
 - [ ] Set `ddl-auto: validate` and run migrations via SQL scripts
 - [ ] Configure HTTPS (reverse proxy: Nginx/Traefik)
 - [ ] Set up SQL Server backups

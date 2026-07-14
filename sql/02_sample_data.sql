@@ -6,9 +6,8 @@
 USE hanzii_db;
 GO
 
--- Admin password: admin123 (BCrypt hash - generated at runtime by app)
--- User password: user123
--- These are placeholder hashes; the app seeder will create real users.
+-- This script only seeds learning data.
+-- Users should be created through registration, Google login, admin tooling, or SQL you control.
 
 -- ============================================================
 -- Topics (5)

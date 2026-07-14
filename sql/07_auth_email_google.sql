@@ -12,6 +12,14 @@ BEGIN
 END
 GO
 
+IF OBJECT_ID('dbo.email_verification_tokens', 'U') IS NOT NULL
+   AND COL_LENGTH('dbo.email_verification_tokens', 'verification_token_hash') IS NOT NULL
+BEGIN
+    ALTER TABLE dbo.email_verification_tokens
+        ALTER COLUMN verification_token_hash NVARCHAR(64) NULL;
+END
+GO
+
 IF COL_LENGTH('dbo.users', 'email') IS NULL
 BEGIN
     ALTER TABLE dbo.users

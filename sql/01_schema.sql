@@ -179,4 +179,25 @@ CREATE TABLE dbo.email_verification_tokens (
 CREATE INDEX IX_email_verification_tokens_email_used
     ON dbo.email_verification_tokens(email, used, created_at DESC);
 
+-- ============================================================
+-- Password reset tokens
+-- ============================================================
+CREATE TABLE dbo.password_reset_tokens (
+    id          BIGINT IDENTITY(1,1) PRIMARY KEY,
+    user_id     BIGINT NOT NULL,
+    token_hash  NVARCHAR(64) NOT NULL,
+    expires_at  DATETIME2 NOT NULL,
+    used        BIT NOT NULL DEFAULT 0,
+    created_at  DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
+    updated_at  DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
+    created_by  NVARCHAR(100) NOT NULL DEFAULT 'system',
+    last_modified_by NVARCHAR(100) NOT NULL DEFAULT 'system',
+    CONSTRAINT UQ_password_reset_tokens_hash UNIQUE (token_hash),
+    CONSTRAINT FK_password_reset_tokens_user FOREIGN KEY (user_id)
+        REFERENCES dbo.users(id) ON DELETE CASCADE
+);
+
+CREATE INDEX IX_password_reset_tokens_user_used
+    ON dbo.password_reset_tokens(user_id, used, created_at DESC);
+
 GO

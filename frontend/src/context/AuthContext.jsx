@@ -54,6 +54,26 @@ export function AuthProvider({ children }) {
     }
   }
 
+  const verifyRegistrationLink = async (token) => {
+    setLoading(true)
+    try {
+      const { data } = await authApi.verifyRegistrationLink({ token })
+      return saveAuth(data.data)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const resendRegistration = async (email) => {
+    setLoading(true)
+    try {
+      const { data } = await authApi.resendRegistration({ email })
+      return data
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const googleLogin = async (idToken) => {
     setLoading(true)
     try {
@@ -79,6 +99,8 @@ export function AuthProvider({ children }) {
       login,
       requestRegistrationOtp,
       verifyRegistration,
+      verifyRegistrationLink,
+      resendRegistration,
       googleLogin,
       logout,
       isAdmin,

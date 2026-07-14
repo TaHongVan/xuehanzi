@@ -16,10 +16,10 @@ export default function LoginPage() {
   const onFinish = async (values) => {
     try {
       await login(values.username, values.password)
-      message.success('Dang nhap thanh cong!')
+      message.success('Đăng nhập thành công!')
       navigate('/vocabulary')
     } catch (err) {
-      message.error(err.response?.data?.message || 'Dang nhap that bai')
+      message.error(err.response?.data?.message || 'Đăng nhập thất bại')
     }
   }
 
@@ -34,10 +34,10 @@ export default function LoginPage() {
         callback: async (response) => {
           try {
             await googleLogin(response.credential)
-            message.success('Dang nhap Google thanh cong!')
+            message.success('Đăng nhập Google thành công!')
             navigate('/vocabulary')
           } catch (err) {
-            message.error(err.response?.data?.message || 'Dang nhap Google that bai')
+            message.error(err.response?.data?.message || 'Đăng nhập Google thất bại')
           }
         },
       })
@@ -67,19 +67,22 @@ export default function LoginPage() {
       <Card className="auth-card">
         <div style={{ textAlign: 'center', marginBottom: 24 }}>
           <Title level={2} style={{ color: '#c41e3a' }}>Hanzii</Title>
-          <Text type="secondary">Nen tang hoc tieng Trung</Text>
+          <Text type="secondary">Nền tảng học tiếng Trung</Text>
         </div>
 
         <Form form={form} onFinish={onFinish} size="large">
-          <Form.Item name="username" rules={[{ required: true, message: 'Nhap email hoac ten dang nhap' }]}>
-            <Input prefix={<UserOutlined />} placeholder="Email hoac ten dang nhap" />
+          <Form.Item name="username" rules={[{ required: true, message: 'Nhập email hoặc tên đăng nhập' }]}>
+            <Input prefix={<UserOutlined />} placeholder="Email hoặc tên đăng nhập" />
           </Form.Item>
-          <Form.Item name="password" rules={[{ required: true, message: 'Nhap mat khau' }]}>
-            <Input.Password prefix={<LockOutlined />} placeholder="Mat khau" />
+          <Form.Item name="password" rules={[{ required: true, message: 'Nhập mật khẩu' }]}>
+            <Input.Password prefix={<LockOutlined />} placeholder="Mật khẩu" />
           </Form.Item>
+          <div style={{ textAlign: 'right', marginTop: -16, marginBottom: 16 }}>
+            <Link to="/forgot-password">Quên mật khẩu?</Link>
+          </div>
           <Form.Item>
             <Button type="primary" htmlType="submit" loading={loading} block style={{ background: '#c41e3a' }}>
-              Dang nhap
+              Đăng nhập
             </Button>
           </Form.Item>
         </Form>
@@ -91,7 +94,7 @@ export default function LoginPage() {
         )}
 
         <div style={{ textAlign: 'center' }}>
-          <Text>Chua co tai khoan? <Link to="/register">Dang ky</Link></Text>
+          <Text>Chưa có tài khoản? <Link to="/register">Đăng ký</Link></Text>
         </div>
       </Card>
     </div>

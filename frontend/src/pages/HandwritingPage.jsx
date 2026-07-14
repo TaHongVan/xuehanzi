@@ -67,7 +67,7 @@ function HanziPracticeTile({ character, index, showTemplate, wordInfo, onHideTem
 
   const speakCharacter = () => {
     if (!('speechSynthesis' in window)) {
-      message.warning('Trinh duyet khong ho tro phat am')
+      message.warning('Trình duyệt không hỗ trợ phát âm')
       return
     }
     window.speechSynthesis.cancel()
@@ -120,7 +120,7 @@ function HanziPracticeTile({ character, index, showTemplate, wordInfo, onHideTem
           strokes: summaryData?.totalStrokes || 0,
           complete: true,
         })
-        message.success(`Da viet dung chu ${character}`)
+        message.success(`Đã viết đúng chữ ${character}`)
       },
     })
   }
@@ -136,38 +136,38 @@ function HanziPracticeTile({ character, index, showTemplate, wordInfo, onHideTem
     <div className="writer-tile">
       <div className="writer-tile-heading">
         <span className="writer-tile-character">{character}</span>
-        <Text type="secondary">Chu {index + 1}</Text>
+        <Text type="secondary">Chữ {index + 1}</Text>
       </div>
       <div className="writer-board">
         <div className="writer-grid" />
         <div ref={writerHostRef} className="hanzi-writer-host" />
       </div>
       <div className="writer-icon-row">
-        <Tooltip title="Hien cach viet tung net">
+        <Tooltip title="Hiện cách viết từng nét">
           <Button icon={<PlayCircleOutlined />} onClick={animateCharacter} />
         </Tooltip>
-        <Tooltip title="Luyen viet theo net chu mau">
+        <Tooltip title="Luyện viết theo nét chữ mẫu">
           <Button className={isQuizMode ? 'writer-icon-active' : ''} icon={<HighlightOutlined />} onClick={startQuiz} />
         </Tooltip>
-        <Tooltip title="Nghe phat am chu dang viet">
+        <Tooltip title="Nghe phát âm chữ đang viết">
           <Button icon={<SoundOutlined />} onClick={speakCharacter} />
         </Tooltip>
-        <Tooltip title="Xoa va viet lai">
+        <Tooltip title="Xóa và viết lại">
           <Button icon={<ClearOutlined />} onClick={resetPractice} />
         </Tooltip>
-        <Tooltip title={wordInfo ? `${wordInfo.pinyin} - ${wordInfo.meaning}` : 'Thong tin chu'}>
-          <Button icon={<InfoCircleOutlined />} />
-        </Tooltip>
-        <Tooltip title="Danh dau yeu thich">
-          <Button icon={<HeartOutlined />} />
-        </Tooltip>
+{/*         <Tooltip title={wordInfo ? `${wordInfo.pinyin} - ${wordInfo.meaning}` : 'Thong tin chu'}> */}
+{/*           <Button icon={<InfoCircleOutlined />} /> */}
+{/*         </Tooltip> */}
+ {/*         <Tooltip title="Danh dau yeu thich"> */}
+ {/*           <Button icon={<HeartOutlined />} /> */}
+ {/*         </Tooltip> */}
       </div>
       {result && (
         <div className="writer-tile-result">
           <Tag color={result.complete ? 'success' : 'processing'}>
-            {result.complete ? 'Hoan thanh' : 'Dang luyen'}
+            {result.complete ? 'Hoàn thành' : 'Đang luyện'}
           </Tag>
-          <Text type="secondary">Dung: {result.strokes || 0} net</Text>
+          <Text type="secondary">Đúng: {result.strokes || 0} nét</Text>
           <Text type="secondary">Sai: {result.mistakes || 0}</Text>
         </div>
       )}
@@ -203,7 +203,7 @@ export default function HandwritingPage() {
           setPracticeText(words[0].chineseWord)
         }
       })
-      .catch(() => message.error('Khong the tai danh sach chu luyen viet'))
+      .catch(() => message.error('Không thể tải danh sách chữ luyện viết'))
   }, [filters])
 
   useEffect(() => {
@@ -229,7 +229,7 @@ export default function HandwritingPage() {
 
   const speakWord = () => {
     if (!('speechSynthesis' in window)) {
-      message.warning('Trinh duyet khong ho tro phat am')
+      message.warning('Trình duyệt không hỗ trợ phát âm')
       return
     }
     window.speechSynthesis.cancel()
@@ -241,24 +241,24 @@ export default function HandwritingPage() {
 
   const toggleTemplate = () => {
     setShowTemplate(current => !current)
-    message.info('Van nhan dien theo du lieu chu mau du mau dang an')
+    message.info('Vẫn nhận diện theo dữ liệu chữ mẫu dù mẫu đang ẩn')
   }
 
   return (
     <div className="page-container handwriting-page">
       <div className="page-title-row">
         <div>
-          <Title level={3}>Luyen viet chu Han</Title>
+          <Title level={3}>Luyện viết chữ Hán</Title>
           <Text type="secondary">
-            Tu ghep se hien du tung chu Han. Moi chu co khung rieng va net viet co mau rieng de de nhin.
+            Từ ghép sẽ hiển thị đủ từng chữ Hán. Mỗi chữ có khung riêng và nét viết có màu riêng để dễ nhìn.
           </Text>
         </div>
         <Space wrap>
-          <Button icon={<SoundOutlined />} onClick={speakWord}>Doc tu</Button>
+          <Button icon={<SoundOutlined />} onClick={speakWord}>Đọc từ</Button>
           <Button icon={showTemplate ? <EyeOutlined /> : <EyeInvisibleOutlined />} onClick={toggleTemplate}>
-            {showTemplate ? 'Tat mau' : 'Hien mau'}
+            {showTemplate ? 'Tắt mẫu' : 'Hiện mẫu'}
           </Button>
-          <Button icon={<ReloadOutlined />} onClick={randomWord}>Ngau nhien</Button>
+          <Button icon={<ReloadOutlined />} onClick={randomWord}>Ngẫu nhiên</Button>
         </Space>
       </div>
 
@@ -266,7 +266,7 @@ export default function HandwritingPage() {
         <Card className="practice-card">
           <div className="practice-header">
             <div>
-              <Text type="secondary">Tu dang luyen</Text>
+              <Text type="secondary">Từ đang luyện</Text>
               <div className="practice-character practice-word">{practiceText}</div>
               {selectedWord && (
                 <Text className="practice-meaning">
@@ -276,7 +276,7 @@ export default function HandwritingPage() {
             </div>
             <Space wrap className="practice-selectors">
               <Select
-                placeholder="Tat ca HSK"
+                placeholder="Tất cả HSK"
                 allowClear
                 value={filters.hsk}
                 onChange={(hsk) => setFilters(current => ({ ...current, hsk }))}
@@ -284,7 +284,7 @@ export default function HandwritingPage() {
                 options={[1, 2, 3, 4, 5, 6].map(n => ({ value: n, label: `HSK ${n}` }))}
               />
               <Select
-                placeholder="Tat ca chu de"
+                placeholder="Tất cả chủ đề"
                 allowClear
                 value={filters.topic}
                 onChange={(topic) => setFilters(current => ({ ...current, topic }))}
@@ -319,10 +319,10 @@ export default function HandwritingPage() {
           </div>
         </Card>
 
-        <Card className="practice-result" title="Huong dan">
+        <Card className="practice-result" title="Hướng dẫn">
           <Text type="secondary">
-            Moi o dai dien cho mot chu Han trong tu. Bam play de xem thu tu net, bam icon but de viet theo net mau.
-            Khi tat mau, he thong van cham dung theo form chu mau cua tung chu.
+            Mỗi ô đại diện cho một chữ Hán trong từ. Bấm play để xem thứ tự nét, bấm biểu tượng bút để viết theo nét mẫu.
+            Khi tắt mẫu, hệ thống vẫn chấm đúng theo hình dạng chữ mẫu của từng chữ.
           </Text>
         </Card>
       </div>

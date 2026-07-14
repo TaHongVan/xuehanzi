@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:sqlserver://${DB_HOST:sqlserver}:${DB_PORT:1433};databaseName=${DB_NAME:hanzii_db};encrypt=true;trustServerCertificate=true;sendStringParametersAsUnicode=true
-    username: ${DB_USERNAME:sa}
-    password: ${DB_PASSWORD:YourStrong@Passw0rd}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
     show-sql: false

@@ -41,17 +41,18 @@ server:
       force: true
 
 app:
+  frontend-base-url: ${FRONTEND_BASE_URL:http://localhost:5173}
   redis:
     enabled: ${REDIS_ENABLED:false}
   jwt:
-    secret: ${JWT_SECRET:hanzii-super-secret-key-change-in-production-min-256-bits-long!!}
+    secret: ${JWT_SECRET}
     expiration-ms: 86400000
   openai:
     api-key: ${HANZII_OPENAI_API_KEY:${OPENAI_API_KEY:}}
-    model: gpt-4o-mini
+    model: ${AI_MODEL:gpt-4o-mini}
     realtime-model: ${OPENAI_REALTIME_MODEL:gpt-realtime-2}
     realtime-voice: ${OPENAI_REALTIME_VOICE:marin}
-    base-url: https://api.openai.com/v1
+    base-url: ${AI_BASE_URL:https://api.openai.com/v1}
   google:
     client-id: ${GOOGLE_CLIENT_ID:}
   mail:

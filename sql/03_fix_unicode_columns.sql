@@ -7,8 +7,7 @@ USE hanzii_db;
 GO
 
 -- Backup note: existing corrupted data cannot be recovered.
--- After running this script, restart the backend to re-seed sample data,
--- or re-import vocabulary from Excel.
+-- After running this script, re-run sql/02_sample_data.sql or re-import vocabulary from Excel.
 
 -- Drop FK constraints that block column alterations
 ALTER TABLE dbo.vocabularies DROP CONSTRAINT IF EXISTS FK_vocabularies_topic;
@@ -47,7 +46,7 @@ ALTER TABLE dbo.user_vocabularies
     ADD CONSTRAINT FK_user_vocabularies_vocabulary FOREIGN KEY (vocabulary_id) REFERENCES dbo.vocabularies(id);
 GO
 
--- Clear corrupted seed data so backend can re-insert correctly
+-- Clear corrupted learning data so it can be re-imported correctly.
 DELETE FROM dbo.user_vocabularies;
 DELETE FROM dbo.messages;
 DELETE FROM dbo.conversations;
@@ -56,5 +55,5 @@ DELETE FROM dbo.vocabularies;
 DELETE FROM dbo.topics;
 GO
 
-PRINT 'Unicode columns fixed. Restart backend to re-seed data.';
+PRINT 'Unicode columns fixed. Re-run sql/02_sample_data.sql or re-import learning data.';
 GO
